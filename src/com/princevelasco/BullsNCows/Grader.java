@@ -1,7 +1,7 @@
 package com.princevelasco.BullsNCows;
 
 public class Grader {
-    static void check(String secret, String guess) {
+    static boolean check(String secret, String guess) {
         int bulls = 0;
         int cows = 0;
         for (int i = 0; i < secret.length(); i++) {
@@ -16,17 +16,28 @@ public class Grader {
             }
         }
 
-        String gradeBulls = bulls > 0 ? String.format("%d bull(s)", bulls) : "";
-        String gradeCows = cows > 0 ? String.format("%d cow(s)", cows) : "";
+        String gradeBulls = bulls > 0 ? String.format("%d bull", bulls) : "";
+        String gradeCows = cows > 0 ? String.format("%d cow", cows) : "";
 
-        if (gradeBulls.isEmpty() && gradeCows.isEmpty()) {
-            System.out.printf("Grade: None. The secret code is %s.", secret);
+        String isPluralBull = bulls > 1 ? gradeBulls + "s" : gradeBulls;
+        String isPluralCow = cows > 1 ? gradeCows + "s" : gradeCows;
+
+        if (bulls == secret.length()) {
+            System.out.println("Grade: " + isPluralBull);
+            System.out.println("Congratulations! You guessed the secret code.");
+            return false;
+        } else if (gradeBulls.isEmpty() && gradeCows.isEmpty()) {
+            System.out.println("Grade: None");
+            return true;
         } else if (gradeBulls.isEmpty()) {
-            System.out.printf("Grade: %s. The secret code is %s.", gradeCows, secret);
+            System.out.printf("Grade: %s\n", isPluralCow);
+            return true;
         } else if (gradeCows.isEmpty()) {
-            System.out.printf("Grade: %s. The secret code is %s.", gradeBulls, secret);
+            System.out.printf("Grade: %s\n", isPluralBull);
+            return true;
         } else {
-            System.out.printf("Grade: %s and %s. The secret code is %s.", gradeBulls, gradeCows, secret);
+            System.out.printf("Grade: %s and %s\n", isPluralBull, isPluralCow);
+            return true;
         }
     }
 }
