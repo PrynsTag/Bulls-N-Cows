@@ -22,16 +22,14 @@ class RandomGenerator {
 
         for (int i = 0; i < secretLength; i++) {
             int randNumber = this.random.nextInt(symbolsCount);
+            String numOrChar = randNumber < 10 ? String.valueOf(randNumber) : String.valueOf((char) (randNumber + 87));
 
-            while (secret.toString().contains(String.valueOf(randNumber))) {
+            while (secret.toString().contains(numOrChar)) {
                 randNumber = this.random.nextInt(symbolsCount);
+                numOrChar = randNumber < 10 ? String.valueOf(randNumber) : String.valueOf((char) (randNumber + 87));
             }
 
-            if (randNumber < 10) {
-                secret.append(randNumber);
-            } else if (randNumber <= 36) {
-                secret.append((char) (randNumber + 86));
-            }
+            secret.append(numOrChar);
         }
     }
 
