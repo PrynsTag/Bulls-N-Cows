@@ -13,9 +13,9 @@ class Grader {
                 .collect(Collectors.joining());
         for (int i = 0; i < secret.length(); i++) {
             for (int j = 0; j < guessNoDuplicate.length(); j++) {
-                if (i == j) {
+                if (secret.charAt(i) == guessNoDuplicate.charAt(j)) {
                     bulls++;
-                } else {
+                } else if (secret.contains(String.valueOf(guessNoDuplicate.charAt(j)))) {
                     cows++;
                 }
             }
