@@ -1,17 +1,22 @@
 package com.princevelasco.BullsNCows;
 
-public class Grader {
-    static boolean check(String secret, String guess) {
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+class Grader {
+    protected static boolean check(String secret, String guess) {
         int bulls = 0;
         int cows = 0;
+
+        String guessNoDuplicate = Arrays.stream(guess.split(""))
+                .distinct()
+                .collect(Collectors.joining());
         for (int i = 0; i < secret.length(); i++) {
-            for (int j = 0; j < guess.length(); j++) {
-                if (guess.charAt(i) == secret.charAt(j)) {
-                    if (i == j) {
-                        bulls++;
-                    } else {
-                        cows++;
-                    }
+            for (int j = 0; j < guessNoDuplicate.length(); j++) {
+                if (i == j) {
+                    bulls++;
+                } else {
+                    cows++;
                 }
             }
         }
